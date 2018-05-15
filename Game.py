@@ -33,7 +33,7 @@ class Game(db.Document):
 
     @staticmethod
     def encrypt(plaintext):
-        arr = ["0x" + elem.encode("hex") for elem in plaintext]
+        arr = ["0x" + codecs.encode(elem, encoding="hex") for elem in plaintext]
         return arr
 
     @staticmethod
