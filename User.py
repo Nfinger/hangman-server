@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, \
 db = MongoEngine()
 
 class User(db.Document):
+    username = db.StringField()
     email = db.EmailField(required=True)
     password = db.StringField()
 
