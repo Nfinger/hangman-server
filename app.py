@@ -39,6 +39,7 @@ class SignupRoutes(Resource):
         print(user)
         stat = Stats(userId=user['id'])
         stat.save()
+        user["stats"] = Stats.return_helper(stat)
         return {"user": user}
 
 class LoginRoutes(Resource):
