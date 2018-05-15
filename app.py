@@ -13,7 +13,10 @@ from Game import Game
 
 app = flask.Flask(__name__)
 app.config.from_object(__name__)
-app.config['MONGODB_SETTINGS'] = {'DB': 'hangman'}
+app.config['MONGODB_SETTINGS'] = {
+    'db': 'hangman',
+    'host': 'mongodb://nfinger:marissa12@ds151207.mlab.com:51207/heroku_m4ljm8t6'
+}
 
 CORS(app)
 db = MongoEngine()
