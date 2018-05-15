@@ -1,6 +1,6 @@
 from flask_mongoengine import MongoEngine
 from flask_mongoengine.wtf import model_form
-import random, codecs
+import random
 db = MongoEngine()
 
 class Game(db.Document):
@@ -33,7 +33,7 @@ class Game(db.Document):
 
     @staticmethod
     def encrypt(plaintext):
-        arr = ["0x" + codecs.encode(elem, encoding="hex") for elem in plaintext]
+        arr = ["0x" + elem.encode() for elem in plaintext]
         return arr
 
     @staticmethod
