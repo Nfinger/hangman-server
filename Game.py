@@ -3,12 +3,6 @@ from flask_mongoengine.wtf import model_form
 import random
 db = MongoEngine()
 
-KEY = 'nate_is_the_best'
-IV = 'This is an IV456'
-MODE = AES.MODE_CFB
-BLOCK_SIZE = 16
-SEGMENT_SIZE = 128
-
 class Game(db.Document):
     userId = db.StringField(required=True)
     answer = db.StringField()
@@ -38,7 +32,7 @@ class Game(db.Document):
         return wordBreakup[difficulty][randIdx].strip()
 
     @staticmethod
-    def encrypt(key, iv, plaintext):
+    def encrypt(plaintext):
         arr = ["0x" + elem.encode("hex") for elem in plaintext]
         return arr
 
@@ -46,5 +40,5 @@ class Game(db.Document):
     def return_helper(game):
         return {
             "id": str(game.id),
-            "answer": Game.encrypt(KEY, IV, game.answer)
+            "answer": Game.encrypt(game.answer)
         }
