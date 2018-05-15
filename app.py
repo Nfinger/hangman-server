@@ -31,9 +31,10 @@ class SignupRoutes(Resource):
     def post(self):
         user_request_parser = RequestParser(bundle_errors=True)
         user_request_parser.add_argument("password", required=True)
+        user_request_parser.add_argument("username", required=True)
         user_request_parser.add_argument("email", required=True)
         args = user_request_parser.parse_args()
-        user = User(email=args["email"], password=User.set_password(args["password"]))
+        user = User(email=args["email"], username=args["username"], password=User.set_password(args["password"]))
         user.save()
         user = User.return_helper(user)
         print(user)
@@ -49,6 +50,10 @@ class LoginRoutes(Resource):
         user_request_parser.add_argument("email", required=True)
         args = user_request_parser.parse_args()
         users = User.objects(email=args["email"])
+        if len(users) == 0:
+            users = User.objects(username=args["email"])
+            if len(users) == 0:
+                return {"error": "Incorrect username/email"}
         if User.check_password(users[0].password, args["password"]):
             user = User.return_helper(users[0])
             stats = Stats.objects(userId=user["id"])
