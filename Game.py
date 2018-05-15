@@ -1,6 +1,6 @@
 from flask_mongoengine import MongoEngine
 from flask_mongoengine.wtf import model_form
-import random
+import random, codecs
 db = MongoEngine()
 
 class Game(db.Document):
@@ -33,7 +33,7 @@ class Game(db.Document):
 
     @staticmethod
     def encrypt(plaintext):
-        return bytearray(plaintext)
+        return [ord(c) for c in plaintext]
 
     @staticmethod
     def return_helper(game):
