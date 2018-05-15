@@ -33,8 +33,7 @@ class Game(db.Document):
 
     @staticmethod
     def encrypt(plaintext):
-        arr = ["0x" + elem.encode() for elem in plaintext]
-        return arr
+        return bytearray(plaintext)
 
     @staticmethod
     def return_helper(game):
