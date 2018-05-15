@@ -20,6 +20,9 @@ db = MongoEngine()
 db.init_app(app)
 api = Api(app)
 
+class HealthRoute(Resource):
+    def get(self):
+        return "Im a healthy server, I have a modem and two routers please dont hurt me"
 
 class SignupRoutes(Resource):
     def post(self):
@@ -87,7 +90,7 @@ class GameOverRoutes(Resource):
         user["stats"] = Stats.return_helper(stats[0])
         return {"user": user}
 
-
+api.add_resource(HealthRoute, '/')
 api.add_resource(SignupRoutes, '/signup')
 api.add_resource(LoginRoutes, '/login')
 api.add_resource(UserRoutes, '/user/<user_id>')
