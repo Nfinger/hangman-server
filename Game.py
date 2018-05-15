@@ -1,6 +1,6 @@
 from flask_mongoengine import MongoEngine
 from flask_mongoengine.wtf import model_form
-import random
+import random, codecs
 db = MongoEngine()
 
 class Game(db.Document):
