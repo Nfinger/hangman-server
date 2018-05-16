@@ -35,10 +35,10 @@ class SignupRoutes(Resource):
         user_request_parser.add_argument("email", required=True)
         args = user_request_parser.parse_args()
         users = User.objects(email=args["email"])
-        if len(users) == 0:
+        if len(users) > 0:
             return {"error": "That email is taken"}
         users = User.objects(username=args["username"])
-        if len(users) == 0:
+        if len(users) > 0:
             return {"error": "That username is taken"}
         user = User(email=args["email"], username=args["username"], password=User.set_password(args["password"]))
         user.save()
